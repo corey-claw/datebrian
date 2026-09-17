@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Friday · Nikki</title>
+<meta name="description" content="Sushi Friday? Pick the spot, the time, and whether Brian comes get you. Sep 18, 2026." />
+<meta property="og:title" content="Friday · Nikki" />
+<meta property="og:description" content="Sushi Friday? Pick the spot, the time, and whether Brian comes get you." />
+<meta property="og:image" content="https://datebrian.bluql.com/og.png" />
+<meta property="og:url" content="https://datebrian.bluql.com/" />
+<meta property="og:type" content="website" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Friday · Nikki" />
+<meta name="twitter:description" content="Sushi Friday? Pick the spot, the time, and whether Brian comes get you." />
+<meta name="twitter:image" content="https://datebrian.bluql.com/og.png" />
+<meta name="theme-color" content="#EAF4FF" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800&family=Fraunces:opsz,ital,wght@9..144,0,600;9..144,1,600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --sky:#EAF4FF;
+  --sky2:#F7EDE2;
+  --ink:#2C2420;
+  --muted:#7A6E66;
+  --card:#FFFFFF;
+  --line:#E6D8CC;
+  --coral:#FF6B6B;
+  --coral-deep:#E85D4C;
+  --gold:#F7D08A;
+  --mint:#7BC4A0;
+  --blue:#7EB6E8;
+  --shadow:0 16px 40px rgba(44,36,32,.10);
+  --shadow-lg:0 24px 60px rgba(44,36,32,.14);
+  --ease:cubic-bezier(.22,.8,.22,1);
+  --spring:cubic-bezier(.34,1.45,.64,1);
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  margin:0;color:var(--ink);
+  font-family:Nunito,system-ui,sans-serif;
+  background:
+    radial-gradient(ellipse 90% 60% at 10% -10%, #FFD6D0 0%, transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 0%, #D6ECFA 0%, transparent 50%),
+    radial-gradient(ellipse 70% 40% at 50% 100%, #FFE6A8 0%, transparent 55%),
+    var(--sky);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+.floaters{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.floater{
+  position:absolute;width:88px;height:88px;opacity:.55;
+  filter:drop-shadow(0 12px 18px rgba(44,36,32,.12));
+  animation:drift 10s ease-in-out infinite alternate;
+}
+.floater svg{width:100%;height:100%}
+.floater.f1{top:6%;left:4%;animation-duration:11s}
+.floater.f2{top:12%;right:3%;animation-duration:13s;animation-delay:-2s}
+.floater.f3{bottom:18%;left:6%;animation-duration:12s;animation-delay:-4s}
+.floater.f4{bottom:10%;right:5%;animation-duration:14s;animation-delay:-1s}
+@keyframes drift{
+  from{transform:translateY(0) rotate(-4deg)}
+  to{transform:translateY(-14px) rotate(6deg)}
+}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:50}
+
+/* INTRO */
+#intro{
+  position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:24px;
+  background:inherit;transition:opacity .55s var(--ease),visibility .55s;
+}
+#intro.go{opacity:0;visibility:hidden;pointer-events:none}
+.hero-card{
+  width:min(400px,92vw);background:var(--card);border-radius:28px;
+  padding:28px 24px 24px;box-shadow:var(--shadow-lg);text-align:center;
+  position:relative;animation:popIn .8s var(--spring) both;
+}
+@keyframes popIn{
+  from{opacity:0;transform:translateY(28px) scale(.94)}
+  to{opacity:1;transform:none}
+}
+.hero-illo{
+  width:140px;height:140px;margin:0 auto 8px;
+  filter:drop-shadow(0 14px 24px rgba(255,107,107,.22));
+  animation:bob 3.5s ease-in-out infinite;
+}
+.hero-illo svg{width:100%;height:100%}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero-kicker{
+  font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--coral);margin-bottom:8px;
+}
+.hero-card h1{
+  font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:600;
+  font-size:clamp(2.8rem,12vw,3.6rem);margin:0 0 8px;line-height:.95;
+}
+.hero-card p{
+  margin:0 0 22px;color:var(--muted);font-size:1rem;line-height:1.45;font-weight:600;
+}
+.enter{
+  width:100%;appearance:none;border:0;cursor:pointer;
+  background:linear-gradient(135deg,var(--coral),var(--coral-deep));
+  color:#fff;font:inherit;font-weight:800;font-size:1rem;
+  padding:16px 20px;border-radius:999px;
+  box-shadow:0 12px 28px rgba(255,107,107,.35);
+  transition:transform .25s var(--spring),filter .2s;
+}
+.enter:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.05)}
+.enter:active{transform:scale(.98)}
+
+/* APP */
+#app{
+  position:relative;z-index:2;max-width:520px;margin:0 auto;
+  padding:22px 16px 96px;opacity:0;pointer-events:none;transform:translateY(18px);
+  transition:opacity .55s var(--ease),transform .55s var(--ease);
+}
+#app.on{opacity:1;pointer-events:auto;transform:none}
+.top{
+  display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;
+}
+.brand{font-weight:800;font-size:.92rem;letter-spacing:-.01em}
+.progress{display:flex;gap:6px}
+.pip{
+  width:28px;height:6px;border-radius:99px;background:rgba(44,36,32,.12);overflow:hidden;
+}
+.pip span{
+  display:block;height:100%;width:100%;background:var(--coral);transform:scaleX(0);
+  transform-origin:left;transition:transform .4s var(--ease);border-radius:inherit;
+}
+.pip.on span,.pip.done span{transform:scaleX(1)}
+.pip.done span{background:var(--mint)}
+
+.headline{
+  font-family:Fraunces,Georgia,serif;font-weight:600;
+  font-size:clamp(1.9rem,7vw,2.45rem);line-height:1.05;margin:0 0 6px;
+}
+.headline em{font-style:italic;color:var(--coral-deep)}
+.lede{margin:0 0 22px;color:var(--muted);font-weight:600;font-size:.95rem;line-height:1.45}
+
+.panel{display:none}
+.panel.active{display:block;animation:rise .4s var(--ease)}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* PLACE CARDS */
+.places{display:grid;gap:14px}
+.place{
+  position:relative;cursor:pointer;display:block;
+}
+.place input{position:absolute;opacity:0;pointer-events:none}
+.place-card{
+  display:grid;grid-template-columns:96px 1fr;gap:0;min-height:118px;
+  background:var(--card);border-radius:24px;border:2px solid transparent;
+  box-shadow:var(--shadow);overflow:hidden;
+  transition:transform .3s var(--spring),box-shadow .3s,border-color .25s;
+}
+.place:hover .place-card{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.place:has(input:checked) .place-card{
+  border-color:var(--coral);box-shadow:0 0 0 4px rgba(255,107,107,.18),var(--shadow-lg);
+  transform:translateY(-2px);
+}
+.place-art,.place-art *,.tick,.time-card .illo,.time-card .illo *,.door-card .illo,.door-card .illo *{pointer-events:none}.place-art{
+  display:grid;place-items:center;background:linear-gradient(160deg,#FFF0EA,#EAF4FF);
+  padding:8px;
+}
+.place-art svg,.place-art .illo{width:78px;height:78px;transition:transform .4s var(--spring)}
+.place:hover .place-art .illo{transform:scale(1.08) rotate(-4deg)}
+.place:has(input:checked) .place-art .illo{transform:scale(1.1) rotate(3deg)}
+.place-body{padding:14px 14px 14px 12px;display:flex;flex-direction:column;justify-content:center}
+.place-city{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:2px}
+.place-name{font-weight:800;font-size:1.05rem;letter-spacing:-.02em;margin:0 0 4px;line-height:1.15}
+.place-desc{margin:0;color:var(--muted);font-size:.78rem;line-height:1.4;font-weight:600}
+.place-tag{
+  margin-top:8px;align-self:flex-start;font-size:10px;font-weight:800;letter-spacing:.06em;
+  text-transform:uppercase;padding:4px 8px;border-radius:999px;
+  background:rgba(123,196,160,.18);color:#2F6B4F;
+}
+.place .tick{
+  position:absolute;top:12px;right:12px;width:26px;height:26px;border-radius:50%;
+  background:#fff;border:2px solid var(--line);display:grid;place-items:center;
+  opacity:0;transform:scale(.7);transition:opacity .2s,transform .3s var(--spring);
+}
+.place:has(input:checked) .tick{
+  opacity:1;transform:scale(1);background:var(--coral);border-color:var(--coral);color:#fff;
+}
+.place .tick svg{width:13px;height:13px}
+
+/* TIME — horizontal snap carousel */
+.time-wrap{position:relative;margin:0}
+.times{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:10px;
+  padding:4px 0 8px;
+}
+.time{
+  position:relative;cursor:pointer;
+  grid-column:span 2;
+}
+/* 3 on top row, 2 centered on bottom */
+.time:nth-child(4){grid-column:2 / span 2}
+.time:nth-child(5){grid-column:4 / span 2}
+@media (min-width:520px){
+  .times{grid-template-columns:repeat(5,1fr);gap:12px}
+  .time,.time:nth-child(4),.time:nth-child(5){grid-column:span 1}
+}
+
+.time input{position:absolute;opacity:0}
+.time-card{
+  background:var(--card);border-radius:22px;padding:12px 8px 10px;text-align:center;height:100%;
+  border:2px solid transparent;box-shadow:var(--shadow);
+  transition:transform .3s var(--spring),border-color .25s,box-shadow .3s,background .25s;
+}
+.time-card .illo{width:56px;height:56px;margin:0 auto 4px;transition:transform .4s var(--spring)}
+.time-card .illo svg{width:100%;height:100%}
+.time-card .hh{
+  font-family:Fraunces,Georgia,serif;font-weight:600;font-size:1.55rem;line-height:1;display:block;
+}
+.time-card .ampm{font-size:11px;font-weight:800;letter-spacing:.12em;color:var(--muted);margin-top:2px}
+.time:hover .time-card{transform:translateY(-4px)}
+.time:has(input:checked) .time-card{
+  border-color:var(--coral);background:linear-gradient(180deg,#FFF7F5,var(--card));
+  box-shadow:0 0 0 4px rgba(255,107,107,.16),var(--shadow-lg);
+  transform:translateY(-2px) scale(1.02);
+}
+.time:has(input:checked) .time-card .illo{transform:scale(1.08)}
+.time:has(input:checked) .ampm{color:var(--coral)}
+.time-hint{
+  text-align:center;font-size:12px;font-weight:700;color:var(--muted);margin-top:-6px;
+}
+
+/* PICKUP — two big illustrated doors */
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.door{position:relative;cursor:pointer}
+.door input{position:absolute;opacity:0}
+.door-card{
+  height:100%;min-height:200px;background:var(--card);border-radius:24px;padding:18px 14px;
+  border:2px solid transparent;box-shadow:var(--shadow);text-align:center;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  transition:transform .3s var(--spring),border-color .25s,box-shadow .3s;
+}
+.door-card .illo{width:92px;height:92px;margin-bottom:4px;transition:transform .4s var(--spring)}
+.door-card .illo svg{width:100%;height:100%}
+.door-card strong{display:block;font-size:1.05rem;font-weight:800;letter-spacing:-.02em}
+.door-card span{display:block;color:var(--muted);font-size:.78rem;font-weight:600;line-height:1.35;max-width:14em}
+.door:hover .door-card{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.door:has(input:checked) .door-card{
+  border-color:var(--coral);box-shadow:0 0 0 4px rgba(255,107,107,.16),var(--shadow-lg);
+}
+.door:has(input:checked) .door-card .illo{transform:scale(1.08) rotate(-3deg)}
+
+/* REVIEW */
+.summary{
+  background:var(--card);border-radius:24px;padding:8px 4px;box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.sum-row{
+  display:flex;justify-content:space-between;gap:12px;align-items:center;
+  padding:14px 16px;border-bottom:1px solid var(--line);
+}
+.sum-row:last-child{border-bottom:0}
+.sum-row .k{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.sum-row .v{font-family:Fraunces,serif;font-size:1.2rem;font-weight:600;text-align:right;max-width:65%;line-height:1.15}
+
+.nav{display:flex;gap:10px;align-items:center;margin-top:22px;position:sticky;bottom:14px;z-index:5}
+.btn{
+  appearance:none;border:0;cursor:pointer;font:inherit;font-weight:800;
+  border-radius:999px;padding:14px 20px;
+  transition:transform .25s var(--spring),filter .2s,opacity .2s;
+}
+.btn:active{transform:scale(.97)}
+.btn-ghost{background:rgba(255,255,255,.75);color:var(--ink);box-shadow:var(--shadow)}
+.btn-go{
+  margin-left:auto;color:#fff;
+  background:linear-gradient(135deg,var(--coral),var(--coral-deep));
+  box-shadow:0 12px 28px rgba(255,107,107,.32);
+}
+.btn-go:hover{filter:brightness(1.05);transform:translateY(-2px)}
+.btn-go:disabled{opacity:.35;cursor:not-allowed;transform:none;filter:none;box-shadow:none}
+.btn-lock{
+  width:100%;margin-top:14px;color:#fff;font-size:1.05rem;padding:16px 22px;
+  background:linear-gradient(135deg,var(--coral),var(--coral-deep));
+  box-shadow:0 14px 32px rgba(255,107,107,.35);
+}
+.btn-lock:hover{filter:brightness(1.05);transform:translateY(-2px)}
+
+footer{
+  text-align:center;margin-top:36px;font-size:10px;font-weight:800;
+  letter-spacing:.16em;text-transform:uppercase;color:rgba(122,110,102,.7);
+}
+
+/* GATE — Yes / runaway No */
+.gate-card{overflow:visible}
+.gate-actions{
+  position:relative;min-height:168px;margin-top:4px;
+  padding-bottom:56px;
+}
+.gate-yes{
+  width:100%;appearance:none;border:0;cursor:pointer;
+  background:linear-gradient(135deg,var(--coral),var(--coral-deep));
+  color:#fff;font:inherit;font-weight:800;font-size:1.15rem;
+  padding:18px 20px;border-radius:999px;
+  box-shadow:0 12px 28px rgba(255,107,107,.35);
+  transition:transform .25s var(--spring),filter .2s;
+}
+.gate-yes:hover{transform:translateY(-2px) scale(1.02);filter:brightness(1.05)}
+.gate-yes:active{transform:scale(.98)}
+.gate-no{
+  position:absolute;appearance:none;border:2px solid var(--line);cursor:pointer;
+  background:rgba(255,255,255,.92);color:var(--muted);
+  font:inherit;font-weight:800;font-size:.88rem;
+  padding:10px 18px;border-radius:999px;
+  box-shadow:var(--shadow);
+  left:50%;bottom:8px;transform:translateX(-50%);
+  transition:left .18s var(--spring),top .18s var(--spring),bottom .18s,transform .18s var(--spring),box-shadow .2s;
+  z-index:3;touch-action:none;user-select:none;
+  white-space:nowrap;
+}
+.gate-no.fleeing{transition:none}
+.gate-no:hover{box-shadow:var(--shadow-lg);color:var(--ink)}
+.gate-caption{
+  min-height:1.4em;margin:14px 0 0;color:var(--coral-deep);
+  font-size:.88rem;font-weight:700;line-height:1.35;
+  transition:opacity .25s;
+}
+.gate-caption:empty{margin:0;min-height:0}
+
+/* VIBE + NOTE */
+.vibe-block,.note-block{margin-top:18px}
+.field-label{
+  display:block;font-size:11px;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:10px;
+}
+.vibe-scale{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:8px;
+}
+.vibe{
+  position:relative;cursor:pointer;
+}
+.vibe input{position:absolute;opacity:0;pointer-events:none}
+.vibe-pill{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  background:var(--card);border:2px solid var(--line);border-radius:18px;
+  padding:12px 4px 10px;min-height:78px;text-align:center;
+  box-shadow:var(--shadow);
+  transition:transform .25s var(--spring),border-color .2s,box-shadow .25s,background .2s;
+}
+.vibe-pill .face{font-size:1.35rem;line-height:1;filter:grayscale(.15)}
+.vibe-pill .lbl{font-size:9px;font-weight:800;letter-spacing:.02em;color:var(--muted);line-height:1.15;max-width:100%}
+.vibe:hover .vibe-pill{transform:translateY(-2px);border-color:#F2C4BA}
+.vibe:has(input:checked) .vibe-pill{
+  border-color:var(--coral);background:linear-gradient(180deg,#FFF7F5,var(--card));
+  box-shadow:0 0 0 3px rgba(255,107,107,.16),var(--shadow);
+  transform:translateY(-2px);
+}
+.vibe:has(input:checked) .vibe-pill .lbl{color:var(--coral-deep)}
+.vibe:has(input:checked) .vibe-pill .face{filter:none;transform:scale(1.08)}
+.note-block textarea{
+  width:100%;resize:vertical;min-height:88px;max-height:180px;
+  font:inherit;font-weight:600;font-size:.95rem;color:var(--ink);
+  background:var(--card);border:2px solid var(--line);border-radius:18px;
+  padding:14px 16px;box-shadow:var(--shadow);
+  outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.note-block textarea:focus{
+  border-color:var(--coral);box-shadow:0 0 0 3px rgba(255,107,107,.14),var(--shadow);
+}
+.note-block textarea::placeholder{color:#B5A89E;font-weight:600}
+.note-hint{margin:6px 0 0;font-size:11px;font-weight:700;color:var(--muted);text-align:right}
+
+.btn-lock:disabled{opacity:.35;cursor:not-allowed;transform:none;filter:none;box-shadow:none}
+
+/* DATE TICKET */
+#done{display:none;text-align:center;padding:28px 8px 16px}
+#done.show{display:block;animation:rise .55s var(--ease)}
+.ticket{
+  width:min(360px,100%);margin:0 auto;text-align:left;
+  background:var(--card);border-radius:24px;
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;position:relative;
+  border:1px solid rgba(230,216,204,.8);
+}
+.ticket::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:6px;
+  background:linear-gradient(180deg,var(--coral),var(--coral-deep));
+}
+.ticket-top{
+  padding:22px 22px 16px 28px;
+  background:linear-gradient(135deg,#FFF7F5 0%,#FFFFFF 60%);
+  border-bottom:1px dashed var(--line);
+}
+.ticket-kicker{
+  font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--coral);margin-bottom:8px;
+}
+.ticket-title{
+  font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:600;
+  font-size:clamp(2rem,8vw,2.5rem);margin:0;line-height:1;color:var(--ink);
+}
+.ticket-body{padding:8px 22px 8px 28px}
+.ticket-row{
+  display:flex;justify-content:space-between;gap:12px;align-items:baseline;
+  padding:12px 0;border-bottom:1px solid var(--line);
+}
+.ticket-row:last-child{border-bottom:0}
+.ticket-row .k{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ticket-row .v{font-family:Fraunces,serif;font-size:1.05rem;font-weight:600;text-align:right;max-width:68%;line-height:1.2}
+.ticket-note{
+  margin:4px 22px 0 28px;padding:12px 14px;border-radius:14px;
+  background:#FFF7F5;color:var(--ink);font-size:.88rem;font-weight:600;line-height:1.4;
+  font-style:italic;
+}
+.ticket-foot{
+  padding:16px 22px 18px 28px;text-align:center;
+  font-size:12px;font-weight:800;letter-spacing:.08em;
+  color:var(--coral-deep);
+  background:linear-gradient(180deg,#fff,#FFF7F5);
+}
+.shot-hint{
+  margin:14px 0 0;font-size:12px;font-weight:700;color:var(--muted);
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .gate-no{transition:none!important}
+}
+</style>
+</head>
+<body>
+<div class="floaters" aria-hidden="true">
+  <div class="floater f1"><div class="illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="98" rx="34" ry="9" fill="#9BB7D4" opacity=".3"/><circle cx="62" cy="56" r="34" fill="#FFE6A8"/><circle cx="74" cy="48" r="28" fill="#EAF4FF"/><circle cx="48" cy="52" r="4" fill="#F7D08A" opacity=".5"/><circle cx="58" cy="68" r="3" fill="#F7D08A" opacity=".4"/><circle cx="40" cy="64" r="2.5" fill="#F7D08A" opacity=".35"/></svg></div></div>
+  <div class="floater f2"><div class="illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="88" rx="42" ry="12" fill="#B8A99A" opacity=".35"/><path d="M22 62c0-4 17-18 38-18s38 14 38 18v10c0 4-17 14-38 14S22 76 22 72V62Z" fill="#F4E4D0"/><path d="M22 62c0 4 17 14 38 14s38-10 38-14" stroke="#E2CDB4" stroke-width="2"/><ellipse cx="60" cy="58" rx="34" ry="12" fill="#2F6B4F"/><ellipse cx="60" cy="54" rx="28" ry="9" fill="#3F8A64"/><circle cx="48" cy="52" r="5" fill="#F2A7A0"/><circle cx="60" cy="50" r="5" fill="#F7D08A"/><circle cx="72" cy="52" r="5" fill="#F2A7A0"/><path d="M40 48c4-10 12-16 20-16" stroke="#E8E0D4" stroke-width="3" stroke-linecap="round" opacity=".7"/></svg></div></div>
+  <div class="floater f3"><div class="illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="100" rx="30" ry="8" fill="#B0A090" opacity=".3"/><circle cx="60" cy="56" r="36" fill="#FFF6EE"/><circle cx="60" cy="56" r="36"/><circle cx="60" cy="56" r="30" fill="#FFFFFF" stroke="#E8D5C4" stroke-width="3"/><circle cx="60" cy="56" r="4" fill="#FF6B6B"/><path d="M60 56 V34" stroke="#2C2C2C" stroke-width="4" stroke-linecap="round"/><path d="M60 56 L78 64" stroke="#FF6B6B" stroke-width="3.5" stroke-linecap="round"/><circle cx="60" cy="28" r="2" fill="#C4A484"/><circle cx="60" cy="84" r="2" fill="#C4A484"/><circle cx="32" cy="56" r="2" fill="#C4A484"/><circle cx="88" cy="56" r="2" fill="#C4A484"/><defs><linearGradient id="g" x1="30" y1="20" x2="90" y2="90"><stop stop-color="#FF6B6B"/><stop offset="1" stop-color="#7EB6E8"/></linearGradient></defs></svg></div></div>
+  <div class="floater f4"><div class="illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="100" rx="22" ry="7" fill="#B0A090" opacity=".35"/><path d="M60 20c-18 0-32 14-32 32 0 24 32 52 32 52s32-28 32-52c0-18-14-32-32-32Z" fill="#FF6B6B"/><circle cx="60" cy="50" r="14" fill="#FFF6EE"/><circle cx="60" cy="50" r="7" fill="#FF8E8E"/></svg></div></div>
+</div>
+<canvas id="fx"></canvas>
+
+<section id="intro">
+  <div class="hero-card gate-card" id="gate">
+    <div class="hero-illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="88" rx="42" ry="12" fill="#B8A99A" opacity=".35"/><path d="M22 62c0-4 17-18 38-18s38 14 38 18v10c0 4-17 14-38 14S22 76 22 72V62Z" fill="#F4E4D0"/><path d="M22 62c0 4 17 14 38 14s38-10 38-14" stroke="#E2CDB4" stroke-width="2"/><ellipse cx="60" cy="58" rx="34" ry="12" fill="#2F6B4F"/><ellipse cx="60" cy="54" rx="28" ry="9" fill="#3F8A64"/><circle cx="48" cy="52" r="5" fill="#F2A7A0"/><circle cx="60" cy="50" r="5" fill="#F7D08A"/><circle cx="72" cy="52" r="5" fill="#F2A7A0"/><path d="M40 48c4-10 12-16 20-16" stroke="#E8E0D4" stroke-width="3" stroke-linecap="round" opacity=".7"/></svg></div>
+    <div class="hero-kicker">Friday · Sep 18</div>
+    <h1>Nikki…</h1>
+    <p>Will you go out with me Friday?<br/>Sushi. Your picks.</p>
+    <div class="gate-actions" id="gate-actions">
+      <button type="button" class="gate-yes" id="yesBtn">Yes ✨</button>
+      <button type="button" class="gate-no" id="noBtn" aria-label="No (it runs away)">No</button>
+    </div>
+    <p class="gate-caption" id="gate-caption" aria-live="polite"></p>
+  </div>
+</section>
+
+<main id="app">
+  <div class="top">
+    <div class="brand">friday night</div>
+    <div class="progress" aria-label="Progress">
+      <div class="pip" data-i="0"><span></span></div>
+      <div class="pip" data-i="1"><span></span></div>
+      <div class="pip" data-i="2"><span></span></div>
+      <div class="pip" data-i="3"><span></span></div>
+    </div>
+  </div>
+
+  <h1 class="headline" id="headline">Where should we <em>eat</em>?</h1>
+  <p class="lede" id="lede">Three sushi spots. Drinks are easy after — at the bar or a short walk.</p>
+
+  <form id="form" novalidate>
+    <div class="panel active" data-step="0">
+      <div class="places">
+        <label class="place">
+          <input type="radio" name="restaurant" value="Blue Sushi Sake Grill (Naperville)" />
+          <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="place-card">
+            <div class="place-art"><div class="illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="92" rx="40" ry="10" fill="#9BB7D4" opacity=".35"/><path d="M18 70c12-18 28-28 42-28 16 0 28 8 42 2v22c-14 8-28 4-42 4-16 0-30 6-42 10V70Z" fill="#5B9BD5"/><path d="M18 64c14-16 30-24 44-24 14 0 26 6 40 2v14c-14 6-28 2-40 2-16 0-32 6-44 12V64Z" fill="#7EB6E8"/><path d="M30 52c8-10 18-14 28-14 12 0 20 4 32 0" stroke="#D6ECFA" stroke-width="4" stroke-linecap="round"/><circle cx="78" cy="40" r="10" fill="#F7D08A"/><circle cx="78" cy="40" r="6" fill="#FFE6A8"/></svg></div></div>
+            <div class="place-body">
+              <div class="place-city">Naperville</div>
+              <div class="place-name">Blue Sushi Sake Grill</div>
+              <p class="place-desc">123 Water St · Riverwalk. Full bar + sake, downtown stroll after.</p>
+              <div class="place-tag">Riverwalk</div>
+            </div>
+          </div>
+        </label>
+
+        <label class="place">
+          <input type="radio" name="restaurant" value="Wasabi Restaurant & Bar (Downers Grove)" />
+          <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="place-card">
+            <div class="place-art"><div class="illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="96" rx="28" ry="8" fill="#C4A484" opacity=".35"/><rect x="48" y="24" width="24" height="8" rx="2" fill="#5C4033"/><path d="M36 44c0-6 10-12 24-12s24 6 24 12v36c0 8-10 16-24 16s-24-8-24-16V44Z" fill="#E85D4C"/><path d="M36 52h48M36 64h48M36 76h48" stroke="#FFB4A8" stroke-width="2" opacity=".7"/><ellipse cx="60" cy="58" rx="10" ry="14" fill="#FFD7A8" opacity=".85"/><rect x="54" y="92" width="12" height="6" rx="1" fill="#5C4033"/></svg></div></div>
+            <div class="place-body">
+              <div class="place-city">Downers Grove</div>
+              <div class="place-name">Wasabi Restaurant &amp; Bar</div>
+              <p class="place-desc">5130 Main St · midway. Intimate sushi + bar. Pierce, Cellar Door, Foxtail nearby.</p>
+              <div class="place-tag">Walkable after</div>
+            </div>
+          </div>
+        </label>
+
+        <label class="place">
+          <input type="radio" name="restaurant" value="Chiba Japanese (Darien)" />
+          <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
+          <div class="place-card">
+            <div class="place-art"><div class="illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="96" rx="36" ry="9" fill="#A8B892" opacity=".4"/><path d="M24 58 L60 28 L96 58 V90 H24 V58Z" fill="#F3E6D4"/><path d="M24 58 L60 28 L96 58 L60 48 Z" fill="#E07A5F"/><rect x="50" y="68" width="20" height="22" rx="2" fill="#7C5C4A"/><circle cx="66" cy="80" r="2" fill="#F7D08A"/><rect x="32" y="64" width="14" height="12" rx="2" fill="#7EB6E8"/><rect x="74" y="64" width="14" height="12" rx="2" fill="#7EB6E8"/><path d="M60 28 L96 58 H88 L60 36 Z" fill="#C96A52"/></svg></div></div>
+            <div class="place-body">
+              <div class="place-city">Darien</div>
+              <div class="place-name">Chiba Japanese</div>
+              <p class="place-desc">7533 S Cass Ave · closest to you. Sushi &amp; hibachi, easy parking.</p>
+              <div class="place-tag">Closest to you</div>
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="panel" data-step="1">
+      <div class="time-wrap">
+        <div class="times" id="times">
+          <label class="time"><input type="radio" name="time" value="6:00 PM" /><div class="time-card"><div class="illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="100" rx="30" ry="8" fill="#B0A090" opacity=".3"/><circle cx="60" cy="56" r="36" fill="#FFF6EE"/><circle cx="60" cy="56" r="36"/><circle cx="60" cy="56" r="30" fill="#FFFFFF" stroke="#E8D5C4" stroke-width="3"/><circle cx="60" cy="56" r="4" fill="#FF6B6B"/><path d="M60 56 V34" stroke="#2C2C2C" stroke-width="4" stroke-linecap="round"/><path d="M60 56 L78 64" stroke="#FF6B6B" stroke-width="3.5" stroke-linecap="round"/><circle cx="60" cy="28" r="2" fill="#C4A484"/><circle cx="60" cy="84" r="2" fill="#C4A484"/><circle cx="32" cy="56" r="2" fill="#C4A484"/><circle cx="88" cy="56" r="2" fill="#C4A484"/><defs><linearGradient id="g" x1="30" y1="20" x2="90" y2="90"><stop stop-color="#FF6B6B"/><stop offset="1" stop-color="#7EB6E8"/></linearGradient></defs></svg></div><span class="hh">6:00</span><div class="ampm">PM</div></div></label>
+          <label class="time"><input type="radio" name="time" value="6:30 PM" /><div class="time-card"><div class="illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="100" rx="30" ry="8" fill="#B0A090" opacity=".3"/><circle cx="60" cy="56" r="36" fill="#FFF6EE"/><circle cx="60" cy="56" r="36"/><circle cx="60" cy="56" r="30" fill="#FFFFFF" stroke="#E8D5C4" stroke-width="3"/><circle cx="60" cy="56" r="4" fill="#FF6B6B"/><path d="M60 56 V34" stroke="#2C2C2C" stroke-width="4" stroke-linecap="round"/><path d="M60 56 L78 64" stroke="#FF6B6B" stroke-width="3.5" stroke-linecap="round"/><circle cx="60" cy="28" r="2" fill="#C4A484"/><circle cx="60" cy="84" r="2" fill="#C4A484"/><circle cx="32" cy="56" r="2" fill="#C4A484"/><circle cx="88" cy="56" r="2" fill="#C4A484"/><defs><linearGradient id="g" x1="30" y1="20" x2="90" y2="90"><stop stop-color="#FF6B6B"/><stop offset="1" stop-color="#7EB6E8"/></linearGradient></defs></svg></div><span class="hh">6:30</span><div class="ampm">PM</div></div></label>
+          <label class="time"><input type="radio" name="time" value="7:00 PM" /><div class="time-card"><div class="illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="100" rx="30" ry="8" fill="#B0A090" opacity=".3"/><circle cx="60" cy="56" r="36" fill="#FFF6EE"/><circle cx="60" cy="56" r="36"/><circle cx="60" cy="56" r="30" fill="#FFFFFF" stroke="#E8D5C4" stroke-width="3"/><circle cx="60" cy="56" r="4" fill="#FF6B6B"/><path d="M60 56 V34" stroke="#2C2C2C" stroke-width="4" stroke-linecap="round"/><path d="M60 56 L78 64" stroke="#FF6B6B" stroke-width="3.5" stroke-linecap="round"/><circle cx="60" cy="28" r="2" fill="#C4A484"/><circle cx="60" cy="84" r="2" fill="#C4A484"/><circle cx="32" cy="56" r="2" fill="#C4A484"/><circle cx="88" cy="56" r="2" fill="#C4A484"/><defs><linearGradient id="g" x1="30" y1="20" x2="90" y2="90"><stop stop-color="#FF6B6B"/><stop offset="1" stop-color="#7EB6E8"/></linearGradient></defs></svg></div><span class="hh">7:00</span><div class="ampm">PM</div></div></label>
+          <label class="time"><input type="radio" name="time" value="7:30 PM" /><div class="time-card"><div class="illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="100" rx="30" ry="8" fill="#B0A090" opacity=".3"/><circle cx="60" cy="56" r="36" fill="#FFF6EE"/><circle cx="60" cy="56" r="36"/><circle cx="60" cy="56" r="30" fill="#FFFFFF" stroke="#E8D5C4" stroke-width="3"/><circle cx="60" cy="56" r="4" fill="#FF6B6B"/><path d="M60 56 V34" stroke="#2C2C2C" stroke-width="4" stroke-linecap="round"/><path d="M60 56 L78 64" stroke="#FF6B6B" stroke-width="3.5" stroke-linecap="round"/><circle cx="60" cy="28" r="2" fill="#C4A484"/><circle cx="60" cy="84" r="2" fill="#C4A484"/><circle cx="32" cy="56" r="2" fill="#C4A484"/><circle cx="88" cy="56" r="2" fill="#C4A484"/><defs><linearGradient id="g" x1="30" y1="20" x2="90" y2="90"><stop stop-color="#FF6B6B"/><stop offset="1" stop-color="#7EB6E8"/></linearGradient></defs></svg></div><span class="hh">7:30</span><div class="ampm">PM</div></div></label>
+          <label class="time"><input type="radio" name="time" value="8:00 PM" /><div class="time-card"><div class="illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="100" rx="30" ry="8" fill="#B0A090" opacity=".3"/><circle cx="60" cy="56" r="36" fill="#FFF6EE"/><circle cx="60" cy="56" r="36"/><circle cx="60" cy="56" r="30" fill="#FFFFFF" stroke="#E8D5C4" stroke-width="3"/><circle cx="60" cy="56" r="4" fill="#FF6B6B"/><path d="M60 56 V34" stroke="#2C2C2C" stroke-width="4" stroke-linecap="round"/><path d="M60 56 L78 64" stroke="#FF6B6B" stroke-width="3.5" stroke-linecap="round"/><circle cx="60" cy="28" r="2" fill="#C4A484"/><circle cx="60" cy="84" r="2" fill="#C4A484"/><circle cx="32" cy="56" r="2" fill="#C4A484"/><circle cx="88" cy="56" r="2" fill="#C4A484"/><defs><linearGradient id="g" x1="30" y1="20" x2="90" y2="90"><stop stop-color="#FF6B6B"/><stop offset="1" stop-color="#7EB6E8"/></linearGradient></defs></svg></div><span class="hh">8:00</span><div class="ampm">PM</div></div></label>
+        </div>
+      </div>
+      <p class="time-hint">Tap a time to lock it in</p>
+    </div>
+
+    <div class="panel" data-step="2">
+      <div class="doors">
+        <label class="door">
+          <input type="radio" name="pickup" value="Yes — pick me up in Darien" />
+          <div class="door-card">
+            <div class="illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="96" rx="40" ry="9" fill="#B0A090" opacity=".35"/><path d="M20 70h80l-6 16H26L20 70Z" fill="#FF6B6B"/><path d="M28 70c4-16 14-26 32-26s28 10 32 26H28Z" fill="#FF8E8E"/><path d="M36 70c3-10 10-16 24-16s21 6 24 16H36Z" fill="#D6ECFA"/><circle cx="34" cy="88" r="10" fill="#2C2C2C"/><circle cx="86" cy="88" r="10" fill="#2C2C2C"/><circle cx="34" cy="88" r="4" fill="#D0D0D0"/><circle cx="86" cy="88" r="4" fill="#D0D0D0"/><rect x="70" y="74" width="12" height="4" rx="1" fill="#FFE6A8"/></svg></div>
+            <strong>Pick me up</strong>
+            <span>You come to Darien and take me.</span>
+          </div>
+        </label>
+        <label class="door">
+          <input type="radio" name="pickup" value="Meet at the restaurant" />
+          <div class="door-card">
+            <div class="illo"><svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><ellipse cx="60" cy="100" rx="22" ry="7" fill="#B0A090" opacity=".35"/><path d="M60 20c-18 0-32 14-32 32 0 24 32 52 32 52s32-28 32-52c0-18-14-32-32-32Z" fill="#FF6B6B"/><circle cx="60" cy="50" r="14" fill="#FFF6EE"/><circle cx="60" cy="50" r="7" fill="#FF8E8E"/></svg></div>
+            <strong>Meet there</strong>
+            <span>Separate cars, same table.</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="panel" data-step="3">
+      <div class="summary">
+        <div class="sum-row"><div class="k">Place</div><div class="v" id="r-place">—</div></div>
+        <div class="sum-row"><div class="k">Time</div><div class="v" id="r-time">—</div></div>
+        <div class="sum-row"><div class="k">Ride</div><div class="v" id="r-pickup">—</div></div>
+      </div>
+
+      <div class="vibe-block">
+        <span class="field-label" id="vibe-label">How excited are you?</span>
+        <div class="vibe-scale" role="radiogroup" aria-labelledby="vibe-label">
+          <label class="vibe">
+            <input type="radio" name="vibe" value="1" data-label="chill" />
+            <div class="vibe-pill"><span class="face" aria-hidden="true">😌</span><span class="lbl">chill</span></div>
+          </label>
+          <label class="vibe">
+            <input type="radio" name="vibe" value="2" data-label="curious" />
+            <div class="vibe-pill"><span class="face" aria-hidden="true">🤔</span><span class="lbl">curious</span></div>
+          </label>
+          <label class="vibe">
+            <input type="radio" name="vibe" value="3" data-label="pumped" />
+            <div class="vibe-pill"><span class="face" aria-hidden="true">🍣</span><span class="lbl">pumped</span></div>
+          </label>
+          <label class="vibe">
+            <input type="radio" name="vibe" value="4" data-label="can’t wait" />
+            <div class="vibe-pill"><span class="face" aria-hidden="true">💖</span><span class="lbl">can’t wait</span></div>
+          </label>
+          <label class="vibe">
+            <input type="radio" name="vibe" value="5" data-label="!!!" />
+            <div class="vibe-pill"><span class="face" aria-hidden="true">🔥</span><span class="lbl">!!!</span></div>
+          </label>
+        </div>
+      </div>
+
+      <div class="note-block">
+        <label class="field-label" for="note">Optional note for Brian</label>
+        <textarea id="note" name="note" maxlength="280" rows="3" placeholder="Anything you want me to know…"></textarea>
+        <div class="note-hint"><span id="note-count">0</span>/280</div>
+      </div>
+
+      <button type="submit" class="btn btn-lock" id="send" disabled>Lock it in</button>
+    </div>
+
+    <div class="nav" id="nav">
+      <button type="button" class="btn btn-ghost" id="back" hidden>Back</button>
+      <button type="button" class="btn btn-go" id="next" disabled>Continue</button>
+    </div>
+  </form>
+
+  <div id="done">
+    <article class="ticket" id="ticket" aria-label="Date confirmation card">
+      <div class="ticket-top">
+        <div class="ticket-kicker">Friday · Sep 18, 2026</div>
+        <h2 class="ticket-title">It’s a date.</h2>
+      </div>
+      <div class="ticket-body">
+        <div class="ticket-row"><div class="k">Place</div><div class="v" id="d-place">—</div></div>
+        <div class="ticket-row"><div class="k">Time</div><div class="v" id="d-time">—</div></div>
+        <div class="ticket-row"><div class="k">Ride</div><div class="v" id="d-pickup">—</div></div>
+        <div class="ticket-row"><div class="k">Vibe</div><div class="v" id="d-vibe">—</div></div>
+      </div>
+      <div class="ticket-note" id="d-note" hidden></div>
+      <div class="ticket-foot">Nikki ♥ Brian</div>
+    </article>
+    <p class="shot-hint">Screenshot this ✨</p>
+  </div>
+
+  <footer>For Nikki · Sep 18, 2026</footer>
+</main>
+
+<script>
+(function(){
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const intro = document.getElementById("intro");
+  const app = document.getElementById("app");
+  const form = document.getElementById("form");
+  const panels = [...document.querySelectorAll(".panel")];
+  const pips = [...document.querySelectorAll(".pip")];
+  const nextBtn = document.getElementById("next");
+  const backBtn = document.getElementById("back");
+  const nav = document.getElementById("nav");
+  const done = document.getElementById("done");
+  const headline = document.getElementById("headline");
+  const lede = document.getElementById("lede");
+  const sendBtn = document.getElementById("send");
+  const noteEl = document.getElementById("note");
+  const noteCount = document.getElementById("note-count");
+  let step = 0;
+
+  const copy = [
+    { h: "Where should we <em>eat</em>?", s: "Three sushi spots. Drinks are easy after — at the bar or a short walk." },
+    { h: "What <em>time</em> feels right?", s: "All five slots — tap the one you want." },
+    { h: "Pick up, or <em>meet there</em>?", s: "Two options. That’s the whole question." },
+    { h: "Looks <em>good</em>?", s: "Add a vibe + optional note, then lock it in." }
+  ];
+  const fields = { 0:"restaurant", 1:"time", 2:"pickup" };
+
+  /* —— Gate: Yes unlocks / No runs away —— */
+  const gate = document.getElementById("gate");
+  const gateActions = document.getElementById("gate-actions");
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const gateCaption = document.getElementById("gate-caption");
+  const noCaptions = [
+    "wrong answer 🍣",
+    "try again",
+    "the sushi disagrees",
+    "nice try",
+    "Nope — try the other one",
+    "still no…",
+    "Okay but the Yes button is right there…"
+  ];
+  let noEscapes = 0;
+  let noArmed = false;
+
+  function unlockApp(){
+    intro.classList.add("go");
+    app.classList.add("on");
+  }
+  yesBtn.addEventListener("click", unlockApp);
+
+  function placeNo(x, y){
+    const pad = 8;
+    const aw = gateActions.clientWidth;
+    const ah = gateActions.clientHeight;
+    const bw = noBtn.offsetWidth;
+    const bh = noBtn.offsetHeight;
+    const maxX = Math.max(pad, aw - bw - pad);
+    const maxY = Math.max(pad, ah - bh - pad);
+    const nx = Math.min(maxX, Math.max(pad, x));
+    const ny = Math.min(maxY, Math.max(pad, y));
+    noBtn.style.left = nx + "px";
+    noBtn.style.top = ny + "px";
+    noBtn.style.bottom = "auto";
+    noBtn.style.transform = "none";
+  }
+
+  function fleeNo(fromX, fromY){
+    const aw = gateActions.clientWidth;
+    const ah = gateActions.clientHeight;
+    const bw = noBtn.offsetWidth;
+    const bh = noBtn.offsetHeight;
+    const pad = 8;
+    const maxX = Math.max(pad, aw - bw - pad);
+    const maxY = Math.max(pad, ah - bh - pad);
+    let nx, ny, tries = 0;
+    do {
+      nx = pad + Math.random() * (maxX - pad);
+      ny = pad + Math.random() * (maxY - pad);
+      tries++;
+    } while (tries < 12 && fromX != null && Math.hypot(nx - fromX, ny - fromY) < Math.min(90, aw * .35));
+
+    if (!reduce){
+      noBtn.classList.add("fleeing");
+      // force reflow then allow transition next time
+      void noBtn.offsetWidth;
+    }
+    placeNo(nx, ny);
+    if (!reduce){
+      requestAnimationFrame(()=> noBtn.classList.remove("fleeing"));
+    }
+
+    noEscapes++;
+    const idx = Math.min(noEscapes - 1, noCaptions.length - 1);
+    gateCaption.textContent = noCaptions[idx];
+  }
+
+  function noRect(){
+    return noBtn.getBoundingClientRect();
+  }
+
+  gateActions.addEventListener("pointermove", e=>{
+    if (e.pointerType === "touch") return;
+    const r = noRect();
+    const cx = r.left + r.width/2;
+    const cy = r.top + r.height/2;
+    const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+    if (dist < 72){
+      const ar = gateActions.getBoundingClientRect();
+      fleeNo(e.clientX - ar.left - noBtn.offsetWidth/2, e.clientY - ar.top - noBtn.offsetHeight/2);
+    }
+  });
+
+  noBtn.addEventListener("pointerenter", e=>{
+    if (e.pointerType === "touch") return;
+    const ar = gateActions.getBoundingClientRect();
+    fleeNo(e.clientX - ar.left - noBtn.offsetWidth/2, e.clientY - ar.top - noBtn.offsetHeight/2);
+  });
+
+  noBtn.addEventListener("click", e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    const ar = gateActions.getBoundingClientRect();
+    fleeNo(ar.width/2, ar.height/2);
+  });
+
+  // First tap on touch: flee instead of "clicking through"
+  noBtn.addEventListener("pointerdown", e=>{
+    if (e.pointerType !== "touch") return;
+    e.preventDefault();
+    const ar = gateActions.getBoundingClientRect();
+    fleeNo(e.clientX - ar.left - noBtn.offsetWidth/2, e.clientY - ar.top - noBtn.offsetHeight/2);
+  });
+
+  function selected(name){
+    const el = form.querySelector(`input[name="${name}"]:checked`);
+    return el ? el.value : "";
+  }
+  function selectedVibe(){
+    const el = form.querySelector('input[name="vibe"]:checked');
+    if (!el) return null;
+    return { value: el.value, label: el.getAttribute("data-label") || el.value };
+  }
+  function shortPlace(v){
+    if (v.startsWith("Blue")) return "Blue Sushi · Naperville";
+    if (v.startsWith("Wasabi")) return "Wasabi · Downers Grove";
+    if (v.startsWith("Chiba")) return "Chiba · Darien";
+    return v;
+  }
+  function shortPickup(v){
+    if (v.startsWith("Yes")) return "Pick up in Darien";
+    if (v.startsWith("Meet")) return "Meet at restaurant";
+    return v;
+  }
+  function canAdvance(){
+    if (step >= 3) return true;
+    return !!selected(fields[step]);
+  }
+  function canSubmit(){
+    return !!(selected("restaurant") && selected("time") && selected("pickup") && selectedVibe());
+  }
+
+  function updateUI(){
+    panels.forEach((p,i)=> p.classList.toggle("active", i===step));
+    pips.forEach((p,i)=>{
+      p.classList.toggle("on", i===step);
+      p.classList.toggle("done", i<step);
+    });
+    headline.innerHTML = copy[step].h;
+    lede.textContent = copy[step].s;
+    backBtn.hidden = step===0;
+    nextBtn.hidden = step===3;
+    nextBtn.disabled = !canAdvance();
+    nextBtn.textContent = step===2 ? "Review" : "Continue";
+    if (step===1) centerTimes();
+    if (step===3){
+      document.getElementById("r-place").textContent = shortPlace(selected("restaurant")) || "—";
+      document.getElementById("r-time").textContent = selected("time") || "—";
+      document.getElementById("r-pickup").textContent = shortPickup(selected("pickup")) || "—";
+      sendBtn.disabled = !canSubmit();
+    }
+  }
+
+  function centerTimes(){
+    const rail = document.getElementById("times");
+    const checked = rail.querySelector("input:checked");
+    const target = checked ? checked.closest(".time") : rail.querySelectorAll(".time")[2];
+    if (!target) return;
+    const left = target.offsetLeft - (rail.clientWidth/2 - target.clientWidth/2);
+    rail.scrollTo({ left, behavior: reduce ? "auto" : "smooth" });
+  }
+
+  function go(delta){
+    if (delta>0 && !canAdvance()) return;
+    step = Math.max(0, Math.min(3, step+delta));
+    updateUI();
+    if (!reduce) window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  nextBtn.addEventListener("click", ()=> go(1));
+  backBtn.addEventListener("click", ()=> go(-1));
+
+  noteEl.addEventListener("input", ()=>{
+    noteCount.textContent = String(noteEl.value.length);
+  });
+
+  form.addEventListener("change", e=>{
+    updateUI();
+    if (e.target && e.target.name==="time"){
+      const card = e.target.closest(".time");
+      if (card){
+        const rail = document.getElementById("times");
+        const left = card.offsetLeft - (rail.clientWidth/2 - card.clientWidth/2);
+        rail.scrollTo({ left, behavior: reduce ? "auto" : "smooth" });
+      }
+    }
+    // auto-advance only for place/time/pickup steps
+    if (step<3 && e.target && fields[step] === e.target.name && canAdvance() && !reduce){
+      clearTimeout(form._auto);
+      form._auto = setTimeout(()=>{ if (step<3 && canAdvance()) go(1); }, 480);
+    }
+  });
+
+  // confetti
+  const canvas = document.getElementById("fx");
+  const ctx = canvas.getContext("2d");
+  let parts = [];
+  function resize(){
+    canvas.width = innerWidth * devicePixelRatio;
+    canvas.height = innerHeight * devicePixelRatio;
+    canvas.style.width = innerWidth+"px";
+    canvas.style.height = innerHeight+"px";
+    ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  }
+  resize(); addEventListener("resize", resize);
+  function burst(){
+    if (reduce) return;
+    const colors = ["#FF6B6B","#F7D08A","#7EB6E8","#7BC4A0","#FFFFFF"];
+    for (let i=0;i<100;i++){
+      parts.push({
+        x:innerWidth/2, y:innerHeight*.32,
+        vx:(Math.random()-.5)*15, vy:Math.random()*-12-3,
+        g:.22+Math.random()*.1, r:2+Math.random()*5,
+        c:colors[i%colors.length], a:1,
+        rot:Math.random()*Math.PI, vr:(Math.random()-.5)*.3
+      });
+    }
+  }
+  (function tick(){
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    parts = parts.filter(p=>p.a>.02);
+    for (const p of parts){
+      p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr; p.a*=.985;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+      ctx.globalAlpha=p.a; ctx.fillStyle=p.c;
+      ctx.fillRect(-p.r,-p.r*.4,p.r*2,p.r*.8);
+      ctx.restore();
+    }
+    requestAnimationFrame(tick);
+  })();
+
+  form.addEventListener("submit", async e=>{
+    e.preventDefault();
+    const restaurant = selected("restaurant");
+    const time = selected("time");
+    const pickup = selected("pickup");
+    const vibe = selectedVibe();
+    const note = (noteEl.value || "").trim();
+    if (!restaurant||!time||!pickup||!vibe) return;
+    sendBtn.disabled = true; sendBtn.textContent = "Sending…";
+    const vibeLine = `${vibe.label} (${vibe.value}/5)`;
+    let body = `Nikki's Friday picks:
+
+Restaurant: ${restaurant}
+Time: ${time}
+Pickup: ${pickup}
+Vibe: ${vibeLine}
+`;
+    if (note) body += `Note: ${note}\n`;
+    const payload = {
+      _subject:"Nikki picked Friday plans",
+      message:body,
+      restaurant, time, pickup,
+      vibe: vibeLine,
+      vibe_value: vibe.value,
+      vibe_label: vibe.label,
+      note: note || "",
+      _template:"box"
+    };
+    try{
+      await fetch("https://formsubmit.co/ajax/d112a2172a0be334321364b86076d37b",{
+        method:"POST",
+        headers:{"Content-Type":"application/json", Accept:"application/json"},
+        body: JSON.stringify(payload)
+      });
+    }catch(_){}
+    try{
+      localStorage.setItem("nikkiPicks", JSON.stringify({
+        restaurant, time, pickup,
+        vibe: vibeLine, vibe_value: vibe.value, vibe_label: vibe.label,
+        note, at:new Date().toISOString()
+      }));
+    }catch(_){}
+    burst();
+    form.style.display="none";
+    headline.style.display="none";
+    lede.style.display="none";
+    nav.style.display="none";
+    document.getElementById("d-place").textContent = shortPlace(restaurant);
+    document.getElementById("d-time").textContent = time;
+    document.getElementById("d-pickup").textContent = shortPickup(pickup);
+    document.getElementById("d-vibe").textContent = vibeLine;
+    const dNote = document.getElementById("d-note");
+    if (note){
+      dNote.hidden = false;
+      dNote.textContent = "“" + note + "”";
+    } else {
+      dNote.hidden = true;
+      dNote.textContent = "";
+    }
+    done.classList.add("show");
+  });
+
+  updateUI();
+})();
+</script></script>
+</body>
+</html>
