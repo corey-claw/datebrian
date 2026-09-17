@@ -7,15 +7,15 @@
 <meta name="description" content="Sushi Friday? Pick the spot, the time, and whether Brian comes get you. Sep 18, 2026." />
 <meta property="og:title" content="Friday · Nikki" />
 <meta property="og:description" content="Sushi Friday? Pick the spot, the time, and whether Brian comes get you." />
-<meta property="og:image" content="https://datebrian.bluql.com/og.png" />
-<meta property="og:url" content="https://datebrian.bluql.com/" />
+<meta property="og:image" content="https://requirements-hammer-candy-longitude.trycloudflare.com/og.png" />
+<meta property="og:url" content="https://requirements-hammer-candy-longitude.trycloudflare.com/" />
 <meta property="og:type" content="website" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Friday · Nikki" />
 <meta name="twitter:description" content="Sushi Friday? Pick the spot, the time, and whether Brian comes get you." />
-<meta name="twitter:image" content="https://datebrian.bluql.com/og.png" />
+<meta name="twitter:image" content="https://requirements-hammer-candy-longitude.trycloudflare.com/og.png" />
 <meta name="theme-color" content="#EAF4FF" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -422,9 +422,25 @@ footer{
   margin:14px 0 0;font-size:12px;font-weight:700;color:var(--muted);
 }
 
+
+/* Mobile: keep floaters gentle even without Reduce Motion */
+@media (max-width:640px){
+  .floater{animation-duration:18s!important;opacity:.4}
+  .floater.f1{animation-duration:20s!important}
+  .floater.f2{animation-duration:22s!important}
+  .floater.f3{animation-duration:19s!important}
+  .floater.f4{animation-duration:24s!important}
+  @keyframes drift{
+    from{transform:translateY(0) rotate(-2deg)}
+    to{transform:translateY(-8px) rotate(3deg)}
+  }
+  .hero-illo{animation-duration:5.5s}
+}
 @media (prefers-reduced-motion:reduce){
-  *,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}
-  .gate-no{transition:none!important}
+  *,*:before,*:after{
+    animation:none!important;
+    transition:none!important;
+  }
 }
 </style>
 </head>
